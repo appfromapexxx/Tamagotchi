@@ -48,7 +48,7 @@
 
 直接開啟以下網址即可遊玩：
 
-👉 **[你的網域.com](https://你的網域.com)**
+👉 **[Tamagotchi](https://tamagotchi.appfromape.com)**
 
 ---
 
