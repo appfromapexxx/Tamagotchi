@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="電子雞">
+    <meta name="description" content="復古像素風電子雞養成遊戲">
+
+    <title>電子雞 - 虛擬寵物養成</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <!-- 遊戲機外殼 -->
+        <div class="device">
+            <!-- LCD 螢幕 -->
+            <div class="screen">
+                <!-- 主遊戲畫面 -->
+                <div id="game-screen" class="screen-content">
+                    <!-- 狀態列 -->
+                    <div class="status-bar">
+                        <div class="status-item">
+                            <span class="status-icon">🍖</span>
+                            <div class="status-bar-bg">
+                                <div id="hunger-bar" class="status-bar-fill hunger"></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">😊</span>
+                            <div class="status-bar-bg">
+                                <div id="happiness-bar" class="status-bar-fill happiness"></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">🧼</span>
+                            <div class="status-bar-bg">
+                                <div id="cleanliness-bar" class="status-bar-fill cleanliness"></div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-icon">💤</span>
+                            <div class="status-bar-bg">
+                                <div id="energy-bar" class="status-bar-fill energy"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 寵物顯示區 -->
+                    <div class="pet-area">
+                        <div id="pet" class="pet egg">
+                            <div class="pet-sprite"></div>
+                        </div>
+                        <div id="pet-message" class="pet-message"></div>
+                    </div>
+
+                    <!-- 年齡顯示 -->
+                    <div class="age-display">
+                        <span id="stage-text">🥚 蛋</span>
+                        <span id="age-text">年齡: 0</span>
+                    </div>
+                </div>
+
+                <!-- 小遊戲畫面 -->
+                <div id="minigame-screen" class="screen-content hidden">
+                    <div class="minigame-header">
+                        <span id="minigame-score">分數: 0</span>
+                        <button id="minigame-exit" class="pixel-btn small">✕</button>
+                    </div>
+                    <div class="minigame-area">
+                        <canvas id="minigame-canvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- 死亡畫面 -->
+                <div id="death-screen" class="screen-content hidden">
+                    <div class="death-message">
+                        <div class="death-icon">💀</div>
+                        <p>你的寵物已經離開了...</p>
+                        <button id="restart-btn" class="pixel-btn">重新開始</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 控制按鈕 -->
+            <div class="controls">
+                <button id="btn-feed" class="pixel-btn" title="餵食">
+                    <span class="btn-icon">🍖</span>
+                    <span class="btn-text">餵食</span>
+                </button>
+                <button id="btn-play" class="pixel-btn" title="玩耍">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-text">玩耍</span>
+                </button>
+                <button id="btn-clean" class="pixel-btn" title="清潔">
+                    <span class="btn-icon">🧼</span>
+                    <span class="btn-text">清潔</span>
+                </button>
+                <button id="btn-sleep" class="pixel-btn" title="睡覺">
+                    <span class="btn-icon">💤</span>
+                    <span class="btn-text">睡覺</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 安裝提示 -->
+    <div id="install-prompt" class="install-prompt hidden">
+        <p>將此遊戲加入主畫面以獲得最佳體驗！</p>
+        <button id="install-btn" class="pixel-btn">安裝</button>
+        <button id="install-dismiss" class="pixel-btn small">稍後</button>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/pet.js"></script>
+    <script src="js/minigame.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

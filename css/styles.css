@@ -1,0 +1,720 @@
+/* ===================================
+   電子雞 - 像素風格樣式表
+   =================================== */
+
+/* 本地像素字型 */
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CSS 變數 */
+:root {
+  --bg-dark: #1a1a2e;
+  --bg-device: #2d2d44;
+  --screen-bg: #9bbc0f;
+  --screen-dark: #0f380f;
+  --screen-light: #8bac0f;
+  --text-dark: #306230;
+  --accent-pink: #ff6b9d;
+  --accent-blue: #4ecdc4;
+  --accent-yellow: #ffe66d;
+  --accent-red: #ff6b6b;
+  --pixel-border: 4px;
+}
+
+/* 重置與基礎 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, #16213e 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* 遊戲容器 */
+.game-container {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* 遊戲機外殼 */
+.device {
+  background: linear-gradient(145deg, #3d3d5c, var(--bg-device));
+  border-radius: 30px;
+  padding: 25px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* LCD 螢幕 */
+.screen {
+  background: var(--screen-bg);
+  border-radius: 15px;
+  padding: 15px;
+  position: relative;
+  box-shadow:
+    inset 0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 0 4px #1a1a2e,
+    0 0 0 6px #3d3d5c;
+  image-rendering: pixelated;
+  min-height: 350px;
+}
+
+/* 螢幕掃描線效果 */
+.screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px);
+  pointer-events: none;
+  border-radius: 15px;
+}
+
+/* 螢幕內容 */
+.screen-content {
+  position: relative;
+  z-index: 1;
+}
+
+.screen-content.hidden {
+  display: none;
+}
+
+/* 狀態列 */
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-icon {
+  font-size: 14px;
+  filter: grayscale(100%) brightness(0.3);
+}
+
+.status-bar-bg {
+  width: 100%;
+  height: 10px;
+  background: var(--screen-dark);
+  border: 2px solid var(--text-dark);
+  position: relative;
+}
+
+.status-bar-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+  image-rendering: pixelated;
+}
+
+.status-bar-fill.hunger {
+  background: var(--screen-dark);
+  box-shadow: inset 0 0 0 1px var(--screen-light);
+}
+
+.status-bar-fill.happiness {
+  background: var(--screen-dark);
+  box-shadow: inset 0 0 0 1px var(--screen-light);
+}
+
+.status-bar-fill.cleanliness {
+  background: var(--screen-dark);
+  box-shadow: inset 0 0 0 1px var(--screen-light);
+}
+
+.status-bar-fill.energy {
+  background: var(--screen-dark);
+  box-shadow: inset 0 0 0 1px var(--screen-light);
+}
+
+/* 寵物區域 */
+.pet-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  position: relative;
+}
+
+/* 寵物精靈 - 使用 CSS 繪製像素風 */
+.pet {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet-sprite {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* 蛋階段 */
+.pet.egg .pet-sprite {
+  width: 60px;
+  height: 80px;
+  background: var(--screen-dark);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: relative;
+  animation: egg-wobble 2s ease-in-out infinite;
+  box-shadow: inset -8px -8px 0 rgba(255, 255, 255, 0.1);
+}
+
+.pet.egg .pet-sprite::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 6px;
+  background: var(--screen-light);
+  border-radius: 3px;
+}
+
+.pet.egg .pet-sprite::after {
+  content: '';
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 6px;
+  background: var(--screen-light);
+  border-radius: 3px;
+}
+
+@keyframes egg-wobble {
+
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* 孵化動畫 */
+.pet.egg.hatching .pet-sprite {
+  animation: egg-shake 0.1s ease-in-out infinite;
+}
+
+@keyframes egg-shake {
+
+  0%,
+  100% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(2px);
+  }
+}
+
+/* 幼年階段 */
+.pet.baby .pet-sprite {
+  width: 50px;
+  height: 50px;
+  background: var(--screen-dark);
+  border-radius: 50%;
+  position: relative;
+  animation: baby-bounce 0.6s ease-in-out infinite;
+}
+
+.pet.baby .pet-sprite::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  background: var(--screen-light);
+  border-radius: 50%;
+  box-shadow: 22px 0 0 var(--screen-light);
+}
+
+.pet.baby .pet-sprite::after {
+  content: '▽';
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--screen-light);
+}
+
+@keyframes baby-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 成年階段 */
+.pet.adult .pet-sprite {
+  width: 70px;
+  height: 70px;
+  background: var(--screen-dark);
+  border-radius: 35px 35px 25px 25px;
+  position: relative;
+  animation: adult-idle 1s ease-in-out infinite;
+}
+
+.pet.adult .pet-sprite::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  background: var(--screen-light);
+  border-radius: 50%;
+  box-shadow: 30px 0 0 var(--screen-light);
+}
+
+.pet.adult .pet-sprite::after {
+  content: '◡';
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: var(--screen-light);
+}
+
+/* 成年 - 身體裝飾 */
+.pet.adult .pet-sprite .body-detail {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes adult-idle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* 睡覺狀態 */
+.pet.sleeping .pet-sprite {
+  animation: sleep-breathe 2s ease-in-out infinite !important;
+}
+
+.pet.sleeping::after {
+  content: '💤';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 20px;
+  animation: zzz-float 1.5s ease-in-out infinite;
+  filter: grayscale(100%) brightness(0.3);
+}
+
+@keyframes sleep-breathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes zzz-float {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+/* 生病狀態 */
+.pet.sick .pet-sprite {
+  animation: sick-shake 0.3s ease-in-out infinite !important;
+  opacity: 0.7;
+}
+
+@keyframes sick-shake {
+
+  0%,
+  100% {
+    transform: translateX(-1px);
+  }
+
+  50% {
+    transform: translateX(1px);
+  }
+}
+
+/* 開心動畫 */
+.pet.happy .pet-sprite {
+  animation: happy-jump 0.3s ease-out;
+}
+
+@keyframes happy-jump {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 死亡狀態 */
+.pet.dead .pet-sprite {
+  opacity: 0.3;
+  animation: none !important;
+  transform: rotate(90deg);
+}
+
+/* 寵物訊息 */
+.pet-message {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--text-dark);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.pet-message.show {
+  opacity: 1;
+  animation: message-fade 2s ease-out forwards;
+}
+
+@keyframes message-fade {
+
+  0%,
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 年齡顯示 */
+.age-display {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: var(--text-dark);
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 2px dashed var(--text-dark);
+}
+
+/* 控制按鈕 */
+.controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pixel-btn {
+  font-family: 'Press Start 2P', cursive;
+  background: linear-gradient(180deg, #4a4a6a, #3a3a5a);
+  border: none;
+  padding: 12px 8px;
+  color: #fff;
+  font-size: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  box-shadow:
+    0 4px 0 #2a2a4a,
+    0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.pixel-btn:hover {
+  background: linear-gradient(180deg, #5a5a7a, #4a4a6a);
+}
+
+.pixel-btn:active {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 #2a2a4a,
+    0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.pixel-btn .btn-icon {
+  font-size: 18px;
+  filter: none;
+}
+
+.pixel-btn .btn-text {
+  font-size: 7px;
+}
+
+.pixel-btn.small {
+  padding: 8px;
+  font-size: 10px;
+}
+
+.pixel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 小遊戲畫面 */
+.minigame-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 10px;
+  color: var(--text-dark);
+}
+
+.minigame-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+}
+
+#minigame-canvas {
+  background: var(--screen-light);
+  border: 3px solid var(--text-dark);
+  image-rendering: pixelated;
+}
+
+/* 死亡畫面 */
+.death-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  gap: 20px;
+}
+
+.death-icon {
+  font-size: 60px;
+  filter: grayscale(100%) brightness(0.3);
+  animation: death-pulse 2s ease-in-out infinite;
+}
+
+@keyframes death-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.death-message p {
+  font-size: 10px;
+  color: var(--text-dark);
+  line-height: 1.8;
+}
+
+#restart-btn {
+  margin-top: 10px;
+}
+
+/* 安裝提示 */
+.install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: var(--bg-device);
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.install-prompt.hidden {
+  display: none;
+}
+
+.install-prompt p {
+  font-size: 8px;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* 響應式設計 */
+@media (max-width: 400px) {
+  .device {
+    padding: 15px;
+    border-radius: 20px;
+  }
+
+  .screen {
+    padding: 10px;
+    min-height: 300px;
+  }
+
+  .controls {
+    gap: 6px;
+  }
+
+  .pixel-btn {
+    padding: 10px 6px;
+  }
+
+  .pixel-btn .btn-icon {
+    font-size: 16px;
+  }
+
+  .pixel-btn .btn-text {
+    font-size: 6px;
+  }
+}
+
+/* 動畫：餵食 */
+.pet.feeding::before {
+  content: '🍖';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  animation: feed-drop 0.5s ease-out forwards;
+}
+
+@keyframes feed-drop {
+  0% {
+    transform: translateX(-50%) translateY(-20px);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+  }
+}
+
+/* 動畫：清潔 */
+.pet.cleaning::before {
+  content: '✨';
+  position: absolute;
+  font-size: 20px;
+  animation: sparkle 0.6s ease-out forwards;
+}
+
+@keyframes sparkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* 便便顯示 */
+.poop {
+  position: absolute;
+  font-size: 20px;
+  filter: grayscale(100%) brightness(0.3);
+  animation: poop-appear 0.3s ease-out;
+}
+
+@keyframes poop-appear {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
